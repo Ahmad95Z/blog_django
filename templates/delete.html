@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <form action="" method = "POST">
+            {% csrf_token %}
+            <h3>Are you sure?</h3><br/>
+            <div>
+            
+                <button class="btn btn-secondary">Delete Post</button>
+            </div>
+        </form>
+    {% endif %}
+{% else %}
+    <h4>You are not <a href="login">logged!</a></h4>
+{% endif %}
+{% endblock %} 

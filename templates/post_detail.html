@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{{ post.title }}
+<hr>
+{% if post.image %}
+<img class="img-fluid" src="{{ post.image.url}}"  width="300">
+{% endif %}
+{{ post.body|safe }}<br/>
+{{ post.create_at }}<br/>
+{{ post.author }}
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <a href="{% url 'update_post' post.pk  %}">Update</a>
+        <a href="{% url 'delete_post' post.pk  %}">Delete</a>
+    {% endif %}
+{% endif %}
+<br/><br/>
+<div class="card mb-3">
+  <div class="row g-0">
+<div class="col-md-2">
+  {% if post.author.profile.profile_image.url %}
+      <img src="{{ post.author.profile.profile_image.url }}" class="img-fluid rounded-start" alt="..." width="150">
+  {% else %}
+    <img src="{% static 'img\user.png' %}" class="img-fluid rounded-start" width="150">
+
+  {% endif %}
+</div>
+    <div class="col-md-10">
+      <div class="card-body">
+        {% if post.author.profile.id %}
+        <h5 class="card-title"><a href="{% url 'profile_page' post.author.profile.id %}">{{ post.author }}</a></h5>
+        {% endif %}
+        <p class="card-text">{{ profile.bio}}</p>
+        <p class="card-text">{{ post.author.profile.body }}</p>
+      {% if post.author.profile.instagram_url %}
+        <small class="text-muted"><a href="{{ post.author.profile.instagram_url }}">Instagram</a></small>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<br/><br/>
+<hr>
+{% if user.is_authenticated%}
+  <form action="" method="POST" class="CommentForm">
+  <h2>Comments..</h2>
+      {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+  </form>
+  <br/><br/>
+  {% for comments in comment %}
+    ({{ comments.author }})  
+    {{ comments.message }}
+  {% endfor %}
+{% endif %}
+<hr>
+
+{% endblock %}

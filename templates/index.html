@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Posts</h2>
+{% for post in filter.qs %}
+<li><a href="{% url 'detail' post.pk %}">{{ post.title }}</a><br/>
+{%  if post.image %}
+    <img class="img-fluid" src="{{ MEDIA_URL }}{{ post.image.url }}" width="300"><br/>
+{% endif %}
+{{ post.body|safe }}
+({{ post.category }})
+({{ post.create_at }})
+-{{ post.author }}</li>
+{% endfor %}
+
+{% for contact in page_obj %}
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}<br>
+    ...
+{% endfor %}
+<hr>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<form  method="get">
+    <hr>
+<div class="container">
+    <div class="row">
+    <div class="col">
+        <p>Категория: {{filter.form.category}}</p>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Найти</button> 
+</div>
+    
+  </form>
+{% endblock %}

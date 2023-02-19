@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h2>User profile</h2>
+<br/><br/>
+<div class="card mb-3">
+    <div class="row g-0">
+  <div class="col-md-6">
+    {% if page_user.profile_image.url %}
+        <img src="{{ page_user.profile_image.url }}" class="img-fluid rounded-start" alt="..." width="400">
+    {% else %}
+      <img src="{% static 'img\user.png' %}" class="img-fluid rounded-start" width="400">
+    {% endif %}
+  </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{ page_user.user }}</h5>
+          <p class="card-text">{{ page_user.bio}}</p>
+          <p class="card-text">{{ page_user.body }}</p>
+        {% if page_user.instagram_url %}
+          <small class="text-muted"><a href="{{  page_user.instagram_url }}">Instagram</a></small>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

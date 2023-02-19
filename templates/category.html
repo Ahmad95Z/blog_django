@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Category {{ category }}</h2>
+{% for post in  category_posts %}
+<li><a href="{% url 'detail' post.pk %}">{{ post.title }}</a>
+    {{ post.body|safe }}
+    ({{ post.create_at }})
+    -{{ post.author }}</li>
+    {% endfor %}
+    
+    {% for contact in page_obj %}
+        {# Each "contact" is a Contact model object. #}
+        {{ contact.full_name|upper }}<br>
+        ...
+    {% endfor %}
+{% endblock %}

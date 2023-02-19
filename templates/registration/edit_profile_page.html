@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+        {% if user.id == profile.user.id %}
+        <h2>Edit Profile</h2>
+        <form action="" method = "POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-secondary">Update</button>
+        </form>
+        {% else %}
+        <h4>You are not <a href="login">logged!</a></h4>
+        {% endif %}
+{% endif %}
+{% endblock %}

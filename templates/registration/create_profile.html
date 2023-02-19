@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Create profile</h2>
+{% if user.is_authenticated %}
+<form action="" method = "POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        {{ form.as_p }}
+        <button>Create</button>
+    </div>
+
+</form>
+{% else %}
+<h4>You are not <a href="login">logged!</a></h4>
+{% endif %}
+{% endblock %}
