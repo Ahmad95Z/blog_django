@@ -60,12 +60,4 @@ class CreateCategory(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('index')
 
-
-class CommentCreateView(CreateView):
-    model = Comment
-    template_name = 'post_detail.html'
-    form_class = CommentForm
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    

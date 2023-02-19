@@ -5,7 +5,7 @@ from django import forms
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields =('message', )
+        fields =('message', 'author' )
 
         widget = {
             'message': forms.TextInput(attrs={'class':'form-control'}),
